@@ -24,7 +24,7 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestDialogProps) => {
       try {
         await getAllFriendRequests();
       } catch (error) {
-        console.error("Lỗi xảy ra khi load requests", error);
+        console.error("Error while load requests", error);
       }
     };
 
@@ -38,7 +38,7 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestDialogProps) => {
     >
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Lời mời kết bạn</DialogTitle>
+          <DialogTitle>Friend requests</DialogTitle>
         </DialogHeader>
         <Tabs
           value={tab}
@@ -46,8 +46,8 @@ const FriendRequestDialog = ({ open, setOpen }: FriendRequestDialogProps) => {
           className="w-full"
         >
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="received">Đã nhận</TabsTrigger>
-            <TabsTrigger value="sent">Đã gửi</TabsTrigger>
+            <TabsTrigger value="received">Received</TabsTrigger>
+            <TabsTrigger value="sent">Sent</TabsTrigger>
           </TabsList>
 
           <TabsContent value="received">

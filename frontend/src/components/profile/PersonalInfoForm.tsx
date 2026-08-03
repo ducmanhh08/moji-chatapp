@@ -19,10 +19,10 @@ type EditableField = {
 };
 
 const PERSONAL_FIELDS: EditableField[] = [
-  { key: "displayName", label: "Tên hiển thị" },
-  { key: "username", label: "Tên người dùng" },
+  { key: "displayName", label: "Display name" },
+  { key: "username", label: "Username" },
   { key: "email", label: "Email", type: "email" },
-  { key: "phone", label: "Số điện thoại" },
+  { key: "phone", label: "Phone number" },
 ];
 
 type Props = {
@@ -37,10 +37,10 @@ const PersonalInfoForm = ({ userInfo }: Props) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Heart className="size-5 text-primary" />
-          Thông tin cá nhân
+          Personal information
         </CardTitle>
         <CardDescription>
-          Cập nhật chi tiết cá nhân và thông tin hồ sơ của bạn
+          Update your personal details and profile information
         </CardDescription>
       </CardHeader>
 
@@ -64,7 +64,7 @@ const PersonalInfoForm = ({ userInfo }: Props) => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="bio">Giới thiệu</Label>
+          <Label htmlFor="bio">Introduction</Label>
           <Textarea
             id="bio"
             rows={3}
@@ -75,7 +75,7 @@ const PersonalInfoForm = ({ userInfo }: Props) => {
         </div>
 
         <Button className="w-full md:w-auto bg-gradient-primary hover:opacity-90 transition-opacity">
-          Lưu thay đổi
+          Save changes
         </Button>
       </CardContent>
     </Card>

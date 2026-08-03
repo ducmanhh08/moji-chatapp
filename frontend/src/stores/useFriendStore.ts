@@ -15,7 +15,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
 
       return user;
     } catch (error) {
-      console.error("Lỗi xảy ra khi tìm user bằng username", error);
+      console.error("Error while finding user by username", error);
       return null;
     } finally {
       set({ loading: false });
@@ -27,8 +27,8 @@ export const useFriendStore = create<FriendState>((set, get) => ({
       const resultMessage = await friendService.sendFriendRequest(to, message);
       return resultMessage;
     } catch (error) {
-      console.error("Lỗi xảy ra khi addFriend", error);
-      return "Lỗi xảy ra khi gửi kết bạn. Hãy thử lại";
+      console.error("Error while addFriend", error);
+      return "An error occurred while sending the friend request. Please try again.";
     } finally {
       set({ loading: false });
     }
@@ -45,7 +45,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
 
       set({ receivedList: received, sentList: sent });
     } catch (error) {
-      console.error("Lỗi xảy ra khi getAllFriendRequests", error);
+      console.error("Error while getAllFriendRequests", error);
     } finally {
       set({ loading: false });
     }
@@ -59,7 +59,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
         receivedList: state.receivedList.filter((r) => r._id !== requestId),
       }));
     } catch (error) {
-      console.error("Lỗi xảy ra khi acceptRequest", error);
+      console.error("Error while acceptRequest", error);
     }
   },
   declineRequest: async (requestId) => {
@@ -71,7 +71,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
         receivedList: state.receivedList.filter((r) => r._id !== requestId),
       }));
     } catch (error) {
-      console.error("Lỗi xảy ra khi declineRequest", error);
+      console.error("Error while declineRequest", error);
     } finally {
       set({ loading: false });
     }
@@ -82,7 +82,7 @@ export const useFriendStore = create<FriendState>((set, get) => ({
       const friends = await friendService.getFriendList();
       set({ friends: friends });
     } catch (error) {
-      console.error("Lỗi xảy ra khi load friends", error);
+      console.error("Error while load friends", error);
       set({ friends: [] });
     } finally {
       set({ loading: false });

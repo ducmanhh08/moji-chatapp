@@ -20,8 +20,8 @@ export const useUserStore = create<UserState>((set, get) => ({
         useChatStore.getState().fetchConversations();
       }
     } catch (error) {
-      console.error("Lỗi khi updateAvatarUrl", error);
-      toast.error("Upload avatar không thành công!");
+      console.error("Error while updating avatar URL", error);
+      toast.error("Avatar upload failed!");
     }
   },
 }));

@@ -32,7 +32,7 @@ export const useChatStore = create<ChatState>()(
 
           set({ conversations, convoLoading: false });
         } catch (error) {
-          console.error("Lỗi xảy ra khi fetchConversations:", error);
+          console.error("Error while fetchConversations:", error);
           set({ convoLoading: false });
         }
       },
@@ -79,7 +79,7 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
-          console.error("Lỗi xảy ra khi fetchMessages:", error);
+          console.error("Error while fetchMessages:", error);
         } finally {
           set({ messageLoading: false });
         }
@@ -99,7 +99,7 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra khi gửi direct message", error);
+          console.error("Error while sending direct message", error);
         }
       },
       sendGroupMessage: async (conversationId, content, imgUrl) => {
@@ -111,7 +111,7 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra gửi group message", error);
+          console.error("Error while sending group message", error);
         }
       },
       addMessage: async (message) => {
@@ -147,7 +147,7 @@ export const useChatStore = create<ChatState>()(
             };
           });
         } catch (error) {
-          console.error("Lỗi xảy khi ra add message:", error);
+          console.error("Error while adding message:", error);
         }
       },
       updateConversation: (conversation) => {
@@ -192,7 +192,7 @@ export const useChatStore = create<ChatState>()(
             ),
           }));
         } catch (error) {
-          console.error("Lỗi xảy ra khi gọi markAsSeen trong store", error);
+          console.error("Error while calling markAsSeen in store", error);
         }
       },
       addConvo: (convo) => {
@@ -224,7 +224,7 @@ export const useChatStore = create<ChatState>()(
             .getState()
             .socket?.emit("join-conversation", conversation._id);
         } catch (error) {
-          console.error("Lỗi xảy ra khi gọi createConversation trong store", error);
+          console.error("Error while calling createConversation in store", error);
         } finally {
           set({ loading: false });
         }

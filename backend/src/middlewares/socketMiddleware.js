@@ -5,25 +5,25 @@ export const socketAuthMiddleware = async (socket, next) => {
   try {
     const token = socket.handshake.auth?.token;
     if (!token) {
-      return next(new Error("Unauthorized - Token không tồn tại"));
+      return next(new Error("Unauthorized - Token not found"));
     }
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     if (!decoded) {
-      return next(new Error("Unauthorized - Token không hợp lệ hoặc đã hết hạn"));
+      return next(new Error("Unauthorized - Token is invalid or has expired"));
     }
 
     const user = await User.findById(decoded.userId).select("-hashedPassword");
 
     if (!user) {
-      return next(new Error("User không tồn tại"));
+      return next(new Error("User does not exist"));
     }
 
     socket.user = user;
 
     next();
   } catch (error) {
-    console.error("Lỗi khi verify JWT trong socketMiddleware", error);
+    console.error("Error while verifying JWT in socketMiddleware", error);
     next(new Error("Unauthorized"));
   }
 };

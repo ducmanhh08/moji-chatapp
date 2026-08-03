@@ -36,7 +36,7 @@ export interface ChatState {
     {
       items: Message[];
       hasMore: boolean; // infinite-scroll
-      nextCursor?: string | null; // phân trang
+      nextCursor?: string | null; // pagination
     }
   >;
   activeConversationId: string | null;

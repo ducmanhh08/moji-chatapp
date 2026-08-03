@@ -11,13 +11,13 @@ export const sendFriendRequest = async (req, res) => {
     if (from === to) {
       return res
         .status(400)
-        .json({ message: "Không thể gửi lời mời kết bạn cho chính mình" });
+        .json({ message: "You cannot send a friend request to yourself" });
     }
 
     const userExists = await User.exists({ _id: to });
 
     if (!userExists) {
-      return res.status(404).json({ message: "Người dùng không tồn tại" });
+      return res.status(404).json({ message: "User does not exist" });
     }
 
     let userA = from.toString();
@@ -38,11 +38,11 @@ export const sendFriendRequest = async (req, res) => {
     ]);
 
     if (alreadyFriends) {
-      return res.status(400).json({ message: "Hai người đã là bạn bè" });
+      return res.status(400).json({ message: "You are already friends" });
     }
 
     if (existingRequest) {
-      return res.status(400).json({ message: "Đã có lời mời kết bạn đang chờ" });
+      return res.status(400).json({ message: "A friend request is already pending" });
     }
 
     const request = await FriendRequest.create({
@@ -53,10 +53,10 @@ export const sendFriendRequest = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Gửi lời mời kết bạn thành công", request });
+      .json({ message: "Friend request sent successfully", request });
   } catch (error) {
-    console.error("Lỗi khi gửi yêu cầu kết bạn", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while sending friend request", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -68,13 +68,13 @@ export const acceptFriendRequest = async (req, res) => {
     const request = await FriendRequest.findById(requestId);
 
     if (!request) {
-      return res.status(404).json({ message: "Không tìm thấy lời mời kết bạn" });
+      return res.status(404).json({ message: "Friend request not found" });
     }
 
     if (request.to.toString() !== userId.toString()) {
       return res
         .status(403)
-        .json({ message: "Bạn không có quyền chấp nhận lời mời này" });
+        .json({ message: "You are not authorized to accept this request" });
     }
 
     const friend = await Friend.create({
@@ -89,7 +89,7 @@ export const acceptFriendRequest = async (req, res) => {
       .lean();
 
     return res.status(200).json({
-      message: "Chấp nhận lời mời kết bạn thành công",
+      message: "Friend request accepted successfully",
       newFriend: {
         _id: from?._id,
         displayName: from?.displayName,
@@ -97,8 +97,8 @@ export const acceptFriendRequest = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Lỗi khi chấp nhận lời mời kết bạn", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while accepting friend request", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -110,21 +110,21 @@ export const declineFriendRequest = async (req, res) => {
     const request = await FriendRequest.findById(requestId);
 
     if (!request) {
-      return res.status(404).json({ message: "Không tìm thấy lời mời kết bạn" });
+      return res.status(404).json({ message: "Friend request not found" });
     }
 
     if (request.to.toString() !== userId.toString()) {
       return res
         .status(403)
-        .json({ message: "Bạn không có quyền từ chối lời mời này" });
+        .json({ message: "You are not authorized to decline this request" });
     }
 
     await FriendRequest.findByIdAndDelete(requestId);
 
     return res.sendStatus(204);
   } catch (error) {
-    console.error("Lỗi khi từ chối lời mời kết bạn", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while declining friend request", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -156,8 +156,8 @@ export const getAllFriends = async (req, res) => {
 
     return res.status(200).json({ friends });
   } catch (error) {
-    console.error("Lỗi khi lấy danh sách bạn bè", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while retrieving friend list", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -174,7 +174,7 @@ export const getFriendRequests = async (req, res) => {
 
     res.status(200).json({ sent, received });
   } catch (error) {
-    console.error("Lỗi khi lấy danh sách yêu cầu kết bạn", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while retrieving friend request list", error);
+    return res.status(500).json({ message: "System error" });
   }
 };

@@ -25,7 +25,7 @@ const SendFriendRequestForm = ({
     <form onSubmit={onSubmit}>
       <div className="space-y-4">
         <span className="success-message">
-          Tìm thấy <span className="font-semibold">@{searchedUsername}</span> rồi nè
+          Found <span className="font-semibold">@{searchedUsername}</span> 
           🎉
         </span>
 
@@ -34,12 +34,12 @@ const SendFriendRequestForm = ({
             htmlFor="message"
             className="text-sm font-semibold"
           >
-            Giới thiệu
+            Introduction
           </Label>
           <Textarea
             id="message"
             rows={3}
-            placeholder="Chào bạn ~ Có thể kết bạn được không?..."
+            placeholder="Hello! Would you like to be friends?..."
             className="glass border-border/50 focus:border-primary/50 transition-smooth resize-none"
             {...register("message")}
           />
@@ -52,7 +52,7 @@ const SendFriendRequestForm = ({
             className="flex-1 glass hover:text-destructive"
             onClick={onBack}
           >
-            Quay lại
+            Back
           </Button>
 
           <Button
@@ -61,10 +61,10 @@ const SendFriendRequestForm = ({
             className="flex-1 bg-gradient-chat text-white hover:opactity-90 transition-smooth"
           >
             {loading ? (
-              <span>Đang gửi...</span>
+              <span>Sending...</span>
             ) : (
               <>
-                <UserPlus className="size-4 mr-2" /> Kết Bạn
+                <UserPlus className="size-4 mr-2" /> Add Friend
               </>
             )}
           </Button>

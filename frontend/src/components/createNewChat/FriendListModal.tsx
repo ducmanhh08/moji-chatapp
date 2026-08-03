@@ -18,14 +18,14 @@ const FriendListModal = () => {
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2 text-xl capitalize">
           <MessageCircleMore className="size-5" />
-          bắt đầu hội thoại mới
+          start a new conversation
         </DialogTitle>
       </DialogHeader>
 
       {/* friends list */}
       <div className="space-y-4">
         <h1 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-          danh sách bạn bè
+          friend list
         </h1>
 
         <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -61,7 +61,7 @@ const FriendListModal = () => {
           {friends.length === 0 && (
             <div className="text-center py-8 text-muted-foreground">
               <Users className="size-12 mx-auto mb-3 opacity-50" />
-              Chưa có bạn bè. Thêm bạn vô để tám!
+              You have no friends yet. Add a friend to start chatting!
             </div>
           )}
         </div>

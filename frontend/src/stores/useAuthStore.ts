@@ -28,15 +28,15 @@ export const useAuthStore = create<AuthState>()(
         try {
           set({ loading: true });
 
-          //  gọi api
+          // call the API
           await authService.signUp(username, password, email, firstName, lastName);
 
           toast.success(
-            "Đăng ký thành công! Bạn sẽ được chuyển sang trang đăng nhập."
+            "Registration successful! You will be redirected to the sign-in page."
           );
         } catch (error) {
           console.error(error);
-          toast.error("Đăng ký không thành công");
+          toast.error("Registration failed");
         } finally {
           set({ loading: false });
         }
@@ -52,10 +52,10 @@ export const useAuthStore = create<AuthState>()(
           await get().fetchMe();
           useChatStore.getState().fetchConversations();
 
-          toast.success("Chào mừng bạn quay lại với Moji 🎉");
+          toast.success("Welcome back to Moji 🎉");
         } catch (error) {
           console.error(error);
-          toast.error("Đăng nhập không thành công!");
+          toast.error("Sign-in failed!");
         } finally {
           set({ loading: false });
         }
@@ -64,10 +64,10 @@ export const useAuthStore = create<AuthState>()(
         try {
           get().clearState();
           await authService.signOut();
-          toast.success("Logout thành công!");
+          toast.success("Signed out successfully!");
         } catch (error) {
           console.error(error);
-          toast.error("Lỗi xảy ra khi logout. Hãy thử lại!");
+          toast.error("An error occurred while signing out. Please try again!");
         }
       },
       fetchMe: async () => {
@@ -79,7 +79,7 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           console.error(error);
           set({ user: null, accessToken: null });
-          toast.error("Lỗi xảy ra khi lấy dữ liệu người dùng. Hãy thử lại!");
+          toast.error("An error occurred while retrieving user data. Please try again!");
         } finally {
           set({ loading: false });
         }
@@ -97,7 +97,7 @@ export const useAuthStore = create<AuthState>()(
           }
         } catch (error) {
           console.error(error);
-          toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
+          toast.error("Your session has expired. Please sign in again!");
           get().clearState();
         } finally {
           set({ loading: false });
@@ -106,7 +106,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-      partialize: (state) => ({ user: state.user }), // chỉ persist user
+      partialize: (state) => ({ user: state.user }), // persist only the user
     }
   )
 );

@@ -26,18 +26,18 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     avatarUrl: {
-      type: String, // link CDN để hiển thị hình
+      type: String, // CDN URL for displaying the image
     },
     avatarId: {
-      type: String, // Cloudinary public_id để xoá hình
+      type: String, // Cloudinary public_id for deleting the image
     },
     bio: {
       type: String,
-      maxlength: 500, // tuỳ
+      maxlength: 500, // optional
     },
     phone: {
       type: String,
-      sparse: true, // cho phép null, nhưng không được trùng
+      sparse: true, // allow null, but do not allow duplicates
     },
   },
   {

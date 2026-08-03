@@ -3,14 +3,14 @@ import User from "../models/User.js";
 
 export const authMe = async (req, res) => {
   try {
-    const user = req.user; // lấy từ authMiddleware
+    const user = req.user; // obtained from authMiddleware
 
     return res.status(200).json({
       user,
     });
   } catch (error) {
-    console.error("Lỗi khi gọi authMe", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while calling authMe", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -19,7 +19,7 @@ export const searchUserByUsername = async (req, res) => {
     const { username } = req.query;
 
     if (!username || username.trim() === "") {
-      return res.status(400).json({ message: "Cần cung cấp username trong query." });
+      return res.status(400).json({ message: "A username query parameter is required." });
     }
 
     const user = await User.findOne({ username }).select(
@@ -28,8 +28,8 @@ export const searchUserByUsername = async (req, res) => {
 
     return res.status(200).json({ user });
   } catch (error) {
-    console.error("Lỗi xảy ra khi searchUserByUsername", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while searchUserByUsername", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -56,12 +56,12 @@ export const uploadAvatar = async (req, res) => {
     ).select("avatarUrl");
 
     if (!updatedUser.avatarUrl) {
-      return res.status(400).json({ message: "Avatar trả về null" });
+      return res.status(400).json({ message: "Avatar URL is null" });
     }
 
     return res.status(200).json({ avatarUrl: updatedUser.avatarUrl });
   } catch (error) {
-    console.error("Lỗi xảy ra khi upload avatar", error);
+    console.error("Error while upload avatar", error);
     return res.status(500).json({ message: "Upload failed" });
   }
 };

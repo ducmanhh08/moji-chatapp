@@ -10,11 +10,11 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useNavigate } from "react-router";
 
 const signUpSchema = z.object({
-  firstname: z.string().min(1, "Tên bắt buộc phải có"),
-  lastname: z.string().min(1, "Họ bắt buộc phải có"),
-  username: z.string().min(3, "Tên đăng nhập phải có ít nhất 3 ký tự"),
-  email: z.email("Email không hợp lệ"),
-  password: z.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự"),
+  firstname: z.string().min(1, "First name is required"),
+  lastname: z.string().min(1, "Last name is required"),
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 type SignUpFormValues = z.infer<typeof signUpSchema>;
@@ -33,7 +33,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
   const onSubmit = async (data: SignUpFormValues) => {
     const { firstname, lastname, username, email, password } = data;
 
-    // gọi backend để signup
+    // call the backend to sign up
     await signUp(username, password, email, firstname, lastname);
 
     navigate("/signin");
@@ -63,20 +63,20 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   />
                 </a>
 
-                <h1 className="text-2xl font-bold">Tạo tài khoản Moji</h1>
+                <h1 className="text-2xl font-bold">Create a Moji account</h1>
                 <p className="text-muted-foreground text-balance">
-                  Chào mừng bạn! Hãy đăng ký để bắt đầu!
+                  Welcome! Sign up to get started!
                 </p>
               </div>
 
-              {/* họ & tên */}
+              {/* last and first name */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label
                     htmlFor="lastname"
                     className="block text-sm"
                   >
-                    Họ
+                    Last name
                   </Label>
                   <Input
                     type="text"
@@ -93,7 +93,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                     htmlFor="fistname"
                     className="block text-sm"
                   >
-                    Tên
+                    First name
                   </Label>
                   <Input
                     type="text"
@@ -112,7 +112,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   htmlFor="username"
                   className="block text-sm"
                 >
-                  Tên đăng nhập
+                  Username
                 </Label>
                 <Input
                   type="text"
@@ -150,7 +150,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   htmlFor="password"
                   className="block text-sm"
                 >
-                  Mật khẩu
+                  Password
                 </Label>
                 <Input
                   type="password"
@@ -162,22 +162,22 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 )}
               </div>
 
-              {/* nút đăng ký */}
+              {/* sign-up button */}
               <Button
                 type="submit"
                 className="w-full"
                 disabled={isSubmitting}
               >
-                Tạo tài khoản
+                Create account
               </Button>
 
               <div className="text-center text-sm">
-                Đã có tài khoản?{" "}
+                Already have an account?{" "}
                 <a
                   href="/signin"
                   className="underline underline-offset-4"
                 >
-                  Đăng nhập
+                  Sign in
                 </a>
               </div>
             </div>
@@ -192,8 +192,8 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
         </CardContent>
       </Card>
       <div className=" text-xs text-balance px-6 text-center *:[a]:hover:text-primary text-muted-foreground *:[a]:underline *:[a]:underline-offetset-4">
-        Bằng cách tiếp tục, bạn đồng ý với <a href="#">Điều khoản dịch vụ</a> và{" "}
-        <a href="#">Chính sách bảo mật</a> của chúng tôi.
+        By continuing, you agree to our <a href="#">Terms of Service</a> and{" "}
+        <a href="#">Privacy Policy</a> .
       </div>
     </div>
   );

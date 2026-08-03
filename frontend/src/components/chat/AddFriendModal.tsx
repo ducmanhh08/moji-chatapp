@@ -67,7 +67,7 @@ const AddFriendModal = () => {
 
       handleCancel();
     } catch (error) {
-      console.error("Lỗi xảy ra khi gửi request từ form", error);
+      console.error("Error while sending request from form", error);
     }
   });
 
@@ -82,13 +82,13 @@ const AddFriendModal = () => {
       <DialogTrigger asChild>
         <div className="flex justify-center items-center size-5 rounded-full hover:bg-sidebar-accent cursor-pointer z-10">
           <UserPlus className="size-4" />
-          <span className="sr-only">Kết bạn</span>
+          <span className="sr-only">Add friend</span>
         </div>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px] border-none">
         <DialogHeader>
-          <DialogTitle>Kết Bạn</DialogTitle>
+          <DialogTitle>Add Friend</DialogTitle>
         </DialogHeader>
 
         {!isFound && (

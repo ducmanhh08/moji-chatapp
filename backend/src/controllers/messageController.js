@@ -14,7 +14,7 @@ export const sendDirectMessage = async (req, res) => {
     let conversation;
 
     if (!content) {
-      return res.status(400).json({ message: "Thiếu nội dung" });
+      return res.status(400).json({ message: "Message content is required" });
     }
 
     if (conversationId) {
@@ -47,8 +47,8 @@ export const sendDirectMessage = async (req, res) => {
 
     return res.status(201).json({ message });
   } catch (error) {
-    console.error("Lỗi xảy ra khi gửi tin nhắn trực tiếp", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while sending direct message", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -59,7 +59,7 @@ export const sendGroupMessage = async (req, res) => {
     const conversation = req.conversation;
 
     if (!content) {
-      return res.status(400).json("Thiếu nội dung");
+      return res.status(400).json("Message content is required");
     }
 
     const message = await Message.create({
@@ -75,7 +75,7 @@ export const sendGroupMessage = async (req, res) => {
 
     return res.status(201).json({ message });
   } catch (error) {
-    console.error("Lỗi xảy ra khi gửi tin nhắn nhóm", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while sending group message", error);
+    return res.status(500).json({ message: "System error" });
   }
 };

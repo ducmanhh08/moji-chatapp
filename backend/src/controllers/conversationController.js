@@ -16,7 +16,7 @@ export const createConversation = async (req, res) => {
     ) {
       return res
         .status(400)
-        .json({ message: "Tên nhóm và danh sách thành viên là bắt buộc" });
+        .json({ message: "Group name and member list are required" });
     }
 
     let conversation;
@@ -55,7 +55,7 @@ export const createConversation = async (req, res) => {
     }
 
     if (!conversation) {
-      return res.status(400).json({ message: "Conversation type không hợp lệ" });
+      return res.status(400).json({ message: "Invalid conversation type" });
     }
 
     await conversation.populate([
@@ -89,8 +89,8 @@ export const createConversation = async (req, res) => {
 
     return res.status(201).json({ conversation: formatted });
   } catch (error) {
-    console.error("Lỗi khi tạo conversation", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while creating conversation", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -131,8 +131,8 @@ export const getConversations = async (req, res) => {
 
     return res.status(200).json({ conversations: formatted });
   } catch (error) {
-    console.error("Lỗi xảy ra khi lấy conversations", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while retrieving conversations", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -166,8 +166,8 @@ export const getMessages = async (req, res) => {
       nextCursor,
     });
   } catch (error) {
-    console.error("Lỗi xảy ra khi lấy messages", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while retrieving messages", error);
+    return res.status(500).json({ message: "System error" });
   }
 };
 
@@ -180,7 +180,7 @@ export const getUserConversationsForSocketIO = async (userId) => {
 
     return conversations.map((c) => c._id.toString());
   } catch (error) {
-    console.error("Lỗi khi fetch conversations: ", error);
+    console.error("Error while fetching conversations: ", error);
     return [];
   }
 };
@@ -193,17 +193,17 @@ export const markAsSeen = async (req, res) => {
     const conversation = await Conversation.findById(conversationId).lean();
 
     if (!conversation) {
-      return res.status(404).json({ message: "Conversation không tồn tại" });
+      return res.status(404).json({ message: "Conversation does not exist" });
     }
 
     const last = conversation.lastMessage;
 
     if (!last) {
-      return res.status(200).json({ message: "Không có tin nhắn để mark as seen" });
+      return res.status(200).json({ message: "There are no messages to mark as seen" });
     }
 
     if (last.senderId.toString() === userId) {
-      return res.status(200).json({ message: "Sender không cần mark as seen" });
+      return res.status(200).json({ message: "The sender does not need to mark the message as seen" });
     }
 
     const updated = await Conversation.findByIdAndUpdate(
@@ -235,7 +235,7 @@ export const markAsSeen = async (req, res) => {
       myUnreadCount: updated?.unreadCounts[userId] || 0,
     });
   } catch (error) {
-    console.error("Lỗi khi mark as seen", error);
-    return res.status(500).json({ message: "Lỗi hệ thống" });
+    console.error("Error while marking as seen", error);
+    return res.status(500).json({ message: "System error" });
   }
 };

@@ -13,7 +13,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     const accessToken = useAuthStore.getState().accessToken;
     const existingSocket = get().socket;
 
-    if (existingSocket) return; // tránh tạo nhiều socket
+    if (existingSocket) return; // avoid creating multiple sockets
 
     const socket: Socket = io(baseURL, {
       auth: { token: accessToken },
@@ -23,7 +23,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     set({ socket });
 
     socket.on("connect", () => {
-      console.log("Đã kết nối với socket");
+      console.log("Connected to socket");
     });
 
     // online users

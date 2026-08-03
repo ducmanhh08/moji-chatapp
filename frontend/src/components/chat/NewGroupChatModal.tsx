@@ -42,7 +42,7 @@ const NewGroupChatModal = () => {
     try {
       e.preventDefault();
       if (invitedUsers.length === 0) {
-        toast.warning("Bạn phải mời ít nhất 1 thành viên vào nhóm");
+        toast.warning("You must invite at least one member to the group");
         return;
       }
 
@@ -55,7 +55,7 @@ const NewGroupChatModal = () => {
       setSearch("");
       setInvitedUsers([]);
     } catch (error) {
-      console.error("Lỗi xảy ra khi handleSubmit trong NewGroupChatModal:", error);
+      console.error("Error while handling submission in NewGroupChatModal:", error);
     }
   };
 
@@ -74,30 +74,30 @@ const NewGroupChatModal = () => {
           className="flex z-10 justify-center items-center size-5 rounded-full hover:bg-sidebar-accent transition cursor-pointer"
         >
           <Users className="size-4" />
-          <span className="sr-only">Tạo nhóm</span>
+          <span className="sr-only">Create group</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px] border-none">
         <DialogHeader>
-          <DialogTitle className="capitalize">tạo nhóm chat mới</DialogTitle>
+          <DialogTitle className="capitalize">create a new group chat</DialogTitle>
         </DialogHeader>
 
         <form
           className="space-y-4"
           onSubmit={handleSubmit}
         >
-          {/* tên nhóm */}
+          {/* group name */}
           <div className="space-y-2">
             <Label
               htmlFor="groupName"
               className="text-sm font-semibold"
             >
-              Tên nhóm
+              Group name
             </Label>
             <Input
               id="groupName"
-              placeholder="Gõ tên nhóm vào đây..."
+              placeholder="Enter a group name..."
               className="glass border-border/50 focus:border-primary/50 transition-smooth"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
@@ -105,24 +105,24 @@ const NewGroupChatModal = () => {
             />
           </div>
 
-          {/* mời thành viên */}
+          {/* invite members */}
           <div className="space-y-2">
             <Label
               htmlFor="invite"
               className="text-sm font-semibold"
             >
-              Mời thành viên
+              Invite members
             </Label>
 
             <Input
               id="invite"
-              placeholder="Tìm theo tên hiển thị..."
+              placeholder="Search by display name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1"
             />
 
-            {/* danh sách gợi ý */}
+            {/* suggestion list */}
             {search && filteredFriends.length > 0 && (
               <IniviteSuggestionList
                 filteredFriends={filteredFriends}
@@ -130,7 +130,7 @@ const NewGroupChatModal = () => {
               />
             )}
 
-            {/* danh sách user đã chọn */}
+            {/* selected-user list */}
             <SelectedUsersList
               invitedUsers={invitedUsers}
               onRemove={handleRemoveFriend}
@@ -144,11 +144,11 @@ const NewGroupChatModal = () => {
               className="flex-1 bg-gradient-chat text-white hover:opacity-90 transition-smooth"
             >
               {loading ? (
-                <span>Đang tạo...</span>
+                <span>Creating...</span>
               ) : (
                 <>
                   <UserPlus className="size-4 mr-2" />
-                  Tạo nhóm
+                  Create group
                 </>
               )}
             </Button>
