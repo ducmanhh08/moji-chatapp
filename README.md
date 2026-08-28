@@ -1,8 +1,7 @@
-# 🎭 Moji — Real-Time Chat Application
+# Moji — Real-Time Chat Application
 
 Moji is a full-stack, real-time messaging application built with the MERN stack and Socket.IO. It supports direct messages, group chats, a friend request system, live presence/read-receipts, and emoji-rich conversations — with a modern, accessible UI built on shadcn/Radix components.
 
-> ⚠️ **Status:** Actively developed learning/portfolio project. See [Roadmap](#-roadmap) for what's planned next.
 
 ---
 
@@ -142,14 +141,6 @@ http://localhost:5001/api-docs
 | `POST` | `/api/messages/direct` | Send a direct message |
 | `POST` | `/api/messages/group` | Send a group message |
 
-## 🗺 Roadmap
-
-- [ ] Message attachments (images/files in-chat, not just avatars)
-- [ ] Typing indicators
-- [ ] Message reactions
-- [ ] Automated tests (unit + integration) and CI pipeline
-- [ ] Dockerized local dev environment
-- [ ] Rate limiting / abuse protection on auth & message endpoints
 
 ## 📄 License
 
